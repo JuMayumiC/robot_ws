@@ -24,10 +24,13 @@ class Renderer:
         self.screen.fill((30, 30, 30))
 
 
-        # ---------- FACE ----------
+        # ---------- FACE BASE ----------
         self.screen.blit(
             self.assets.get_face(),
-            (Layout.FACE_X, Layout.FACE_Y)
+            (
+                Layout.FACE_X,
+                Layout.FACE_Y
+            )
         )
 
 
@@ -35,7 +38,7 @@ class Renderer:
         self.screen.blit(
             self.assets.get_eyebrow(
                 "left",
-                self.state.expression
+                self.state.eyebrow
             ),
             (
                 Layout.LEFT_EYEBROW_X,
@@ -46,7 +49,7 @@ class Renderer:
         self.screen.blit(
             self.assets.get_eyebrow(
                 "right",
-                self.state.expression
+                self.state.eyebrow
             ),
             (
                 Layout.RIGHT_EYEBROW_X,
@@ -59,7 +62,7 @@ class Renderer:
         self.screen.blit(
             self.assets.get_eye(
                 "left",
-                self.state.expression
+                self.state.eye
             ),
             (
                 Layout.LEFT_EYE_X,
@@ -70,7 +73,7 @@ class Renderer:
         self.screen.blit(
             self.assets.get_eye(
                 "right",
-                self.state.expression
+                self.state.eye
             ),
             (
                 Layout.RIGHT_EYE_X,
@@ -82,7 +85,7 @@ class Renderer:
         # ---------- BOCA ----------
         self.screen.blit(
             self.assets.get_mouth(
-                self.state.expression
+                self.state.mouth
             ),
             (
                 Layout.MOUTH_X,
