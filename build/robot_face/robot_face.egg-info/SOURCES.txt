@@ -1,0 +1,12 @@
+package.xml
+setup.cfg
+setup.py
+resource/robot_face
+robot_face/__init__.py
+robot_face/py.typed
+robot_face.egg-info/PKG-INFO
+robot_face.egg-info/SOURCES.txt
+robot_face.egg-info/dependency_links.txt
+robot_face.egg-info/requires.txt
+robot_face.egg-info/top_level.txt
+robot_face.egg-info/zip-safe

@@ -1,0 +1,20 @@
+[6.203s] Invoking command in '/home/mayumi/robot_ws/build/robot_face': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mayumi/robot_ws/build/robot_face/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mayumi/robot_ws/install/robot_face/lib/python3.14/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/mayumi/robot_ws/build/robot_face/build --no-deps symlink_data
+[6.657s] running develop
+[6.885s] running egg_info
+[6.913s] creating robot_face.egg-info
+[6.914s] writing robot_face.egg-info/PKG-INFO
+[6.914s] writing dependency_links to robot_face.egg-info/dependency_links.txt
+[6.914s] writing requirements to robot_face.egg-info/requires.txt
+[6.915s] writing top-level names to robot_face.egg-info/top_level.txt
+[6.915s] writing manifest file 'robot_face.egg-info/SOURCES.txt'
+[6.966s] reading manifest file 'robot_face.egg-info/SOURCES.txt'
+[6.967s] writing manifest file 'robot_face.egg-info/SOURCES.txt'
+[6.996s] running build_ext
+[6.996s] Creating /home/mayumi/robot_ws/install/robot_face/lib/python3.14/site-packages/robot-face.egg-link (link to .)
+[6.997s] 
+[6.997s] Installed /home/mayumi/robot_ws/build/robot_face
+[6.997s] running symlink_data
+[6.997s] creating /home/mayumi/robot_ws/install/robot_face/share/ament_index/resource_index/packages
+[6.997s] symbolically linking /home/mayumi/robot_ws/build/robot_face/resource/robot_face -> /home/mayumi/robot_ws/install/robot_face/share/ament_index/resource_index/packages
+[6.998s] symbolically linking /home/mayumi/robot_ws/build/robot_face/package.xml -> /home/mayumi/robot_ws/install/robot_face/share/robot_face
+[7.061s] Invoked command in '/home/mayumi/robot_ws/build/robot_face' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mayumi/robot_ws/build/robot_face/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mayumi/robot_ws/install/robot_face/lib/python3.14/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/mayumi/robot_ws/build/robot_face/build --no-deps symlink_data

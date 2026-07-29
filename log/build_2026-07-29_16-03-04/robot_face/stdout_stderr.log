@@ -1,0 +1,18 @@
+running develop
+running egg_info
+creating robot_face.egg-info
+writing robot_face.egg-info/PKG-INFO
+writing dependency_links to robot_face.egg-info/dependency_links.txt
+writing requirements to robot_face.egg-info/requires.txt
+writing top-level names to robot_face.egg-info/top_level.txt
+writing manifest file 'robot_face.egg-info/SOURCES.txt'
+reading manifest file 'robot_face.egg-info/SOURCES.txt'
+writing manifest file 'robot_face.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/mayumi/robot_ws/install/robot_face/lib/python3.14/site-packages/robot-face.egg-link (link to .)
+
+Installed /home/mayumi/robot_ws/build/robot_face
+running symlink_data
+creating /home/mayumi/robot_ws/install/robot_face/share/ament_index/resource_index/packages
+symbolically linking /home/mayumi/robot_ws/build/robot_face/resource/robot_face -> /home/mayumi/robot_ws/install/robot_face/share/ament_index/resource_index/packages
+symbolically linking /home/mayumi/robot_ws/build/robot_face/package.xml -> /home/mayumi/robot_ws/install/robot_face/share/robot_face

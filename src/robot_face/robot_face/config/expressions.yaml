@@ -1,0 +1,24 @@
+normal:
+  eyes: normal
+  eyebrows: normal
+  mouth: normal
+
+happy:
+  eyes: happy
+  eyebrows: normal
+  mouth: happy
+
+sad:
+  eyes: sleepy
+  eyebrows: sad
+  mouth: sad
+
+serious:
+  eyes: serious
+  eyebrows: serious
+  mouth: normal
+
+scary:
+  eyes: scary
+  eyebrows: angry
+  mouth: scary
