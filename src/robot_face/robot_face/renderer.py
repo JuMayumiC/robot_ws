@@ -12,8 +12,13 @@ class Renderer:
 
         pygame.init()
 
-        self.screen = pygame.display.set_mode((520, 309))
-        pygame.display.set_caption("Robot Face")
+        self.screen = pygame.display.set_mode(
+            (520, 309)
+        )
+
+        pygame.display.set_caption(
+            "Robot Face"
+        )
 
 
         self.assets = AssetManager()
@@ -24,10 +29,15 @@ class Renderer:
 
     def draw(self):
 
-        self.screen.fill((30, 30, 30))
+        self.screen.fill(
+            (30, 30, 30)
+        )
 
 
-        # ---------- FACE BASE ----------
+
+        # =====================
+        # FACE
+        # =====================
 
         self.screen.blit(
             self.assets.get_face(),
@@ -39,7 +49,9 @@ class Renderer:
 
 
 
-        # ---------- SOBRANCELHAS ----------
+        # =====================
+        # SOBRANCELHAS
+        # =====================
 
         self.screen.blit(
             self.assets.get_eyebrow(
@@ -66,12 +78,14 @@ class Renderer:
 
 
 
-        # ---------- OLHOS ----------
+        # =====================
+        # OLHOS
+        # =====================
 
         self.screen.blit(
             self.assets.get_eye(
                 "left",
-                self.state.eye
+                self.state.current_eye
             ),
             (
                 Layout.LEFT_EYE_X,
@@ -83,7 +97,7 @@ class Renderer:
         self.screen.blit(
             self.assets.get_eye(
                 "right",
-                self.state.eye
+                self.state.current_eye
             ),
             (
                 Layout.RIGHT_EYE_X,
@@ -93,24 +107,31 @@ class Renderer:
 
 
 
-        # ---------- BOCA ----------
+        # =====================
+        # BOCA
+        # =====================
 
         if self.state.current_mouth in [
+
             "A",
             "E",
             "I",
             "O",
             "U"
+
         ]:
+
 
             x = Layout.VISEME_X
             y = Layout.VISEME_Y
+
 
 
             if self.state.current_mouth == "I":
 
                 x = Layout.VISEME_I_X
                 y = Layout.VISEME_I_Y
+
 
 
             elif self.state.current_mouth == "U":
@@ -132,6 +153,7 @@ class Renderer:
 
 
         else:
+
 
             self.screen.blit(
                 self.assets.get_mouth(

@@ -1,4 +1,5 @@
 import pygame
+import random
 
 
 class Animator:
@@ -7,13 +8,33 @@ class Animator:
 
         self.state = state
 
+
+        # =====================
+        # FALA
+        # =====================
+
         self.talking = False
 
-        self.timer = 0
+        self.talk_timer = 0
 
-        self.speed = 120
+        self.talk_speed = 120
 
-        self.index = 0
+        self.viseme_index = 0
+
+
+
+        # =====================
+        # PISCADA
+        # =====================
+
+        self.blinking = False
+
+        self.blink_timer = 0
+
+        self.next_blink = (
+            pygame.time.get_ticks()
+            + random.randint(2000, 5000)
+        )
 
 
 
@@ -21,7 +42,7 @@ class Animator:
 
         self.talking = True
 
-        self.index = 0
+        self.viseme_index = 0
 
 
 
@@ -35,14 +56,27 @@ class Animator:
 
     def update(self):
 
+        self.update_talking()
+
+        self.update_blink()
+
+
+
+    # =================================================
+    # ANIMAÇÃO DA BOCA
+    # =================================================
+
+    def update_talking(self):
+
         if not self.talking:
+
             return
 
 
         now = pygame.time.get_ticks()
 
 
-        if now - self.timer >= self.speed:
+        if now - self.talk_timer >= self.talk_speed:
 
 
             sequence = [
@@ -60,18 +94,65 @@ class Animator:
             ]
 
 
-            frame = sequence[self.index]
+            self.state.set_current_mouth(
+                sequence[self.viseme_index]
+            )
 
 
-            self.state.set_current_mouth(frame)
+            self.viseme_index += 1
 
 
-            self.index += 1
+            if self.viseme_index >= len(sequence):
+
+                self.viseme_index = 0
 
 
-            if self.index >= len(sequence):
-
-                self.index = 0
+            self.talk_timer = now
 
 
-            self.timer = now
+
+    # =================================================
+    # PISCADA AUTOMÁTICA
+    # =================================================
+
+    def update_blink(self):
+
+        now = pygame.time.get_ticks()
+
+
+
+        # inicia piscada
+        if (
+            now >= self.next_blink
+            and not self.blinking
+        ):
+
+            self.state.set_current_eye(
+                "blink"
+            )
+
+            self.blinking = True
+
+            self.blink_timer = now
+
+
+
+        # termina piscada
+        elif self.blinking:
+
+
+            if now - self.blink_timer >= 150:
+
+
+                self.state.set_current_eye(
+                    self.state.eye
+                )
+
+
+                self.blinking = False
+
+
+                self.next_blink = (
+                    now
+                    + random.randint(2000, 5000)
+                )

@@ -8,8 +8,10 @@ class FaceState:
         self.mouth = "normal"
 
 
-        # Boca atualmente desenhada
+        # Estado de animação
+        self.current_eye = "normal"
         self.current_mouth = "normal"
+
 
 
     def set_face(self, eye, eyebrow, mouth):
@@ -18,8 +20,15 @@ class FaceState:
         self.eyebrow = eyebrow
         self.mouth = mouth
 
-        # quando troca expressão, muda a boca de repouso
+        # Atualiza o estado visual
+        self.current_eye = eye
         self.current_mouth = mouth
+
+
+
+    def set_current_eye(self, eye):
+
+        self.current_eye = eye
 
 
 
@@ -31,5 +40,5 @@ class FaceState:
 
     def stop_talking(self):
 
-        # volta para a boca da expressão
+        # volta para a boca da emoção
         self.current_mouth = self.mouth
