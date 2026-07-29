@@ -12,11 +12,18 @@ from expressions import (
     ANGRY
 )
 
+from animator import Animator
+
 
 renderer = Renderer()
 
 # Expressão inicial
 renderer.state.set_face(*NORMAL)
+
+# Controle da fala
+animator = Animator(
+    renderer.state
+)
 
 
 running = True
@@ -31,6 +38,8 @@ while running:
 
         if event.type == pygame.KEYDOWN:
 
+
+            # ---------- EXPRESSÕES ----------
 
             # Normal
             if event.key == pygame.K_n:
@@ -68,45 +77,62 @@ while running:
                 renderer.state.set_face(*ANGRY)
 
 
-            # -------- VISAMES --------
 
-            # Boca A
+            # ---------- TESTE MANUAL DE VISEMES ----------
+
+            # A
             elif event.key == pygame.K_1:
 
                 renderer.state.set_viseme("A")
 
 
-            # Boca E
+            # E
             elif event.key == pygame.K_2:
 
                 renderer.state.set_viseme("E")
 
 
-            # Boca I
+            # I
             elif event.key == pygame.K_3:
 
                 renderer.state.set_viseme("I")
 
 
-            # Boca O
+            # O
             elif event.key == pygame.K_4:
 
                 renderer.state.set_viseme("O")
 
 
-            # Boca U
+            # U
             elif event.key == pygame.K_5:
 
                 renderer.state.set_viseme("U")
 
 
+
+            # ---------- ANIMAÇÃO DE FALA ----------
+
+            # Iniciar fala automática
+            elif event.key == pygame.K_t:
+
+                animator.start_talking()
+
+
             # Parar fala
-            elif event.key == pygame.K_0:
+            elif event.key == pygame.K_SPACE:
 
-                renderer.state.stop_talking()
+                animator.stop_talking()
 
 
+
+    # Atualiza animação da boca
+    animator.update()
+
+
+    # Desenha rosto
     renderer.draw()
+
 
 
 pygame.quit()

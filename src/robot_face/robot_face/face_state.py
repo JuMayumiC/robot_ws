@@ -2,13 +2,14 @@ class FaceState:
 
     def __init__(self):
 
-        # Partes do rosto
+        # Expressão atual
         self.eye = "normal"
         self.eyebrow = "normal"
         self.mouth = "normal"
 
-        # Visema da boca (fala)
-        self.viseme = None
+
+        # Boca atualmente desenhada
+        self.current_mouth = "normal"
 
 
     def set_face(self, eye, eyebrow, mouth):
@@ -17,7 +18,18 @@ class FaceState:
         self.eyebrow = eyebrow
         self.mouth = mouth
 
+        # quando troca expressão, muda a boca de repouso
+        self.current_mouth = mouth
 
-    def set_viseme(self, viseme):
 
-        self.viseme = viseme
+
+    def set_current_mouth(self, mouth):
+
+        self.current_mouth = mouth
+
+
+
+    def stop_talking(self):
+
+        # volta para a boca da expressão
+        self.current_mouth = self.mouth

@@ -7,6 +7,7 @@ from face_state import FaceState
 
 class Renderer:
 
+
     def __init__(self):
 
         pygame.init()
@@ -14,9 +15,11 @@ class Renderer:
         self.screen = pygame.display.set_mode((520, 309))
         pygame.display.set_caption("Robot Face")
 
+
         self.assets = AssetManager()
 
         self.state = FaceState()
+
 
 
     def draw(self):
@@ -25,6 +28,7 @@ class Renderer:
 
 
         # ---------- FACE BASE ----------
+
         self.screen.blit(
             self.assets.get_face(),
             (
@@ -34,7 +38,9 @@ class Renderer:
         )
 
 
+
         # ---------- SOBRANCELHAS ----------
+
         self.screen.blit(
             self.assets.get_eyebrow(
                 "left",
@@ -45,6 +51,7 @@ class Renderer:
                 Layout.LEFT_EYEBROW_Y
             )
         )
+
 
         self.screen.blit(
             self.assets.get_eyebrow(
@@ -58,7 +65,9 @@ class Renderer:
         )
 
 
+
         # ---------- OLHOS ----------
+
         self.screen.blit(
             self.assets.get_eye(
                 "left",
@@ -69,6 +78,7 @@ class Renderer:
                 Layout.LEFT_EYE_Y
             )
         )
+
 
         self.screen.blit(
             self.assets.get_eye(
@@ -82,31 +92,37 @@ class Renderer:
         )
 
 
-        # ---------- BOCA ----------
-        if self.state.viseme:
 
-            # Posição padrão
+        # ---------- BOCA ----------
+
+        if self.state.current_mouth in [
+            "A",
+            "E",
+            "I",
+            "O",
+            "U"
+        ]:
+
             x = Layout.VISEME_X
             y = Layout.VISEME_Y
 
 
-            # Ajuste do viseme I
-            if self.state.viseme == "I":
+            if self.state.current_mouth == "I":
 
                 x = Layout.VISEME_I_X
                 y = Layout.VISEME_I_Y
 
 
-            # Ajuste do viseme U
-            elif self.state.viseme == "U":
+            elif self.state.current_mouth == "U":
 
                 x = Layout.VISEME_U_X
                 y = Layout.VISEME_U_Y
 
 
+
             self.screen.blit(
                 self.assets.get_viseme(
-                    self.state.viseme
+                    self.state.current_mouth
                 ),
                 (
                     x,
@@ -119,13 +135,14 @@ class Renderer:
 
             self.screen.blit(
                 self.assets.get_mouth(
-                    self.state.mouth
+                    self.state.current_mouth
                 ),
                 (
                     Layout.MOUTH_X,
                     Layout.MOUTH_Y
                 )
             )
+
 
 
         pygame.display.flip()
