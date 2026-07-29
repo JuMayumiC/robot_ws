@@ -83,15 +83,49 @@ class Renderer:
 
 
         # ---------- BOCA ----------
-        self.screen.blit(
-            self.assets.get_mouth(
-                self.state.mouth
-            ),
-            (
-                Layout.MOUTH_X,
-                Layout.MOUTH_Y
+        if self.state.viseme:
+
+            # Posição padrão
+            x = Layout.VISEME_X
+            y = Layout.VISEME_Y
+
+
+            # Ajuste do viseme I
+            if self.state.viseme == "I":
+
+                x = Layout.VISEME_I_X
+                y = Layout.VISEME_I_Y
+
+
+            # Ajuste do viseme U
+            elif self.state.viseme == "U":
+
+                x = Layout.VISEME_U_X
+                y = Layout.VISEME_U_Y
+
+
+            self.screen.blit(
+                self.assets.get_viseme(
+                    self.state.viseme
+                ),
+                (
+                    x,
+                    y
+                )
             )
-        )
+
+
+        else:
+
+            self.screen.blit(
+                self.assets.get_mouth(
+                    self.state.mouth
+                ),
+                (
+                    Layout.MOUTH_X,
+                    Layout.MOUTH_Y
+                )
+            )
 
 
         pygame.display.flip()

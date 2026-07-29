@@ -3,14 +3,21 @@ import sys
 
 from renderer import Renderer
 
+from expressions import (
+    NORMAL,
+    HAPPY,
+    HAPPY_BLINK,
+    SAD,
+    SCARED,
+    ANGRY
+)
+
 
 renderer = Renderer()
 
-renderer.state.set_face(
-    "normal",
-    "normal",
-    "normal"
-)
+# Expressão inicial
+renderer.state.set_face(*NORMAL)
+
 
 running = True
 
@@ -28,58 +35,76 @@ while running:
             # Normal
             if event.key == pygame.K_n:
 
-                renderer.state.set_face(
-                    "normal",
-                    "normal",
-                    "normal"
-                )
+                renderer.state.set_face(*NORMAL)
 
 
-            # Feliz Normal
+            # Feliz
             elif event.key == pygame.K_h:
 
-                renderer.state.set_face(
-                    "normal",
-                    "normal",
-                    "happy"
-                )
+                renderer.state.set_face(*HAPPY)
 
-            #Feliz Blink
+
+            # Feliz piscando
             elif event.key == pygame.K_j:
 
-                renderer.state.set_face(
-                    "blink",
-                    "normal",
-                    "happy"
-                )
+                renderer.state.set_face(*HAPPY_BLINK)
 
-            # Triste Normal
+
+            # Triste
             elif event.key == pygame.K_s:
 
-                renderer.state.set_face(
-                    "normal",
-                    "sad",
-                    "sad"
-                )
+                renderer.state.set_face(*SAD)
 
 
             # Assustado
             elif event.key == pygame.K_a:
 
-                renderer.state.set_face(
-                    "scary",
-                    "serious",
-                    "scary"
-                )
+                renderer.state.set_face(*SCARED)
 
-            # Bravo Normal
+
+            # Bravo
             elif event.key == pygame.K_b:
 
-                renderer.state.set_face(
-                    "normal",
-                    "angry",
-                    "angry"
-                )
+                renderer.state.set_face(*ANGRY)
+
+
+            # -------- VISAMES --------
+
+            # Boca A
+            elif event.key == pygame.K_1:
+
+                renderer.state.set_viseme("A")
+
+
+            # Boca E
+            elif event.key == pygame.K_2:
+
+                renderer.state.set_viseme("E")
+
+
+            # Boca I
+            elif event.key == pygame.K_3:
+
+                renderer.state.set_viseme("I")
+
+
+            # Boca O
+            elif event.key == pygame.K_4:
+
+                renderer.state.set_viseme("O")
+
+
+            # Boca U
+            elif event.key == pygame.K_5:
+
+                renderer.state.set_viseme("U")
+
+
+            # Parar fala
+            elif event.key == pygame.K_0:
+
+                renderer.state.stop_talking()
+
 
     renderer.draw()
 
