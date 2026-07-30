@@ -7,7 +7,6 @@ from face_state import FaceState
 
 class Renderer:
 
-
     def __init__(self):
 
         pygame.init()
@@ -34,9 +33,8 @@ class Renderer:
         )
 
 
-
         # =====================
-        # FACE
+        # FACE BASE
         # =====================
 
         self.screen.blit(
@@ -56,11 +54,12 @@ class Renderer:
         self.screen.blit(
             self.assets.get_eyebrow(
                 "left",
-                self.state.eyebrow
+                self.state.current_eyebrow
             ),
             (
                 Layout.LEFT_EYEBROW_X,
                 Layout.LEFT_EYEBROW_Y
+                + self.state.eyebrow_offset_y
             )
         )
 
@@ -68,11 +67,12 @@ class Renderer:
         self.screen.blit(
             self.assets.get_eyebrow(
                 "right",
-                self.state.eyebrow
+                self.state.current_eyebrow
             ),
             (
                 Layout.RIGHT_EYEBROW_X,
                 Layout.RIGHT_EYEBROW_Y
+                + self.state.eyebrow_offset_y
             )
         )
 
@@ -112,28 +112,25 @@ class Renderer:
         # =====================
 
         if self.state.current_mouth in [
-
             "A",
             "E",
             "I",
             "O",
             "U"
-
         ]:
-
 
             x = Layout.VISEME_X
             y = Layout.VISEME_Y
 
 
-
+            # ajuste do I
             if self.state.current_mouth == "I":
 
                 x = Layout.VISEME_I_X
                 y = Layout.VISEME_I_Y
 
 
-
+            # ajuste do U
             elif self.state.current_mouth == "U":
 
                 x = Layout.VISEME_U_X
@@ -153,7 +150,6 @@ class Renderer:
 
 
         else:
-
 
             self.screen.blit(
                 self.assets.get_mouth(

@@ -4,6 +4,7 @@ import random
 
 class Animator:
 
+
     def __init__(self, state):
 
         self.state = state
@@ -38,6 +39,18 @@ class Animator:
 
 
 
+        # =====================
+        # SOBRANCELHA
+        # =====================
+
+        self.eyebrow_timer = 0
+
+        self.eyebrow_up = False
+
+        self.eyebrow_speed = 900
+
+
+
     def start_talking(self):
 
         self.talking = True
@@ -60,16 +73,17 @@ class Animator:
 
         self.update_blink()
 
+        self.update_eyebrow()
 
 
-    # =================================================
-    # ANIMAÇÃO DA BOCA
-    # =================================================
+
+    # ==================================================
+    # BOCA / FALA
+    # ==================================================
 
     def update_talking(self):
 
         if not self.talking:
-
             return
 
 
@@ -81,10 +95,8 @@ class Animator:
 
             sequence = [
 
-                # boca da expressão
                 self.state.mouth,
 
-                # visemes
                 "A",
                 "E",
                 "O",
@@ -111,17 +123,15 @@ class Animator:
 
 
 
-    # =================================================
-    # PISCADA AUTOMÁTICA
-    # =================================================
+    # ==================================================
+    # PISCADA
+    # ==================================================
 
     def update_blink(self):
 
         now = pygame.time.get_ticks()
 
 
-
-        # inicia piscada
         if (
             now >= self.next_blink
             and not self.blinking
@@ -131,13 +141,13 @@ class Animator:
                 "blink"
             )
 
+
             self.blinking = True
 
             self.blink_timer = now
 
 
 
-        # termina piscada
         elif self.blinking:
 
 
@@ -156,3 +166,35 @@ class Animator:
                     now
                     + random.randint(2000, 5000)
                 )
+
+
+
+    # ==================================================
+    # SOBRANCELHA
+    # ==================================================
+
+    def update_eyebrow(self):
+
+        now = pygame.time.get_ticks()
+
+
+        if now - self.eyebrow_timer >= self.eyebrow_speed:
+
+
+            if self.eyebrow_up:
+
+                # volta para posição normal
+                self.state.set_eyebrow_offset(0)
+
+
+            else:
+
+                # sobe 5 pixels
+                self.state.set_eyebrow_offset(-5)
+
+
+
+            self.eyebrow_up = not self.eyebrow_up
+
+
+            self.eyebrow_timer = now
