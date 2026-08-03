@@ -8,9 +8,15 @@ class Animator:
 
         self.state = state
 
-        # =====================
+        # ==================================================
+        # MODO
+        # ==================================================
+
+        self.mode = "normal"
+
+        # ==================================================
         # FALA
-        # =====================
+        # ==================================================
 
         self.talking = False
 
@@ -19,9 +25,18 @@ class Animator:
 
         self.viseme_index = 0
 
-        # =====================
+        # ==================================================
+        # SONO
+        # ==================================================
+
+        self.sleep_timer = 0
+        self.sleep_speed = 800
+
+        self.sleep_index = 0
+
+        # ==================================================
         # PISCADA
-        # =====================
+        # ==================================================
 
         self.blinking = False
 
@@ -32,9 +47,9 @@ class Animator:
             + random.randint(2000, 5000)
         )
 
-        # =====================
+        # ==================================================
         # SOBRANCELHAS
-        # =====================
+        # ==================================================
 
         self.eyebrow_timer = 0
 
@@ -44,8 +59,41 @@ class Animator:
 
         self.eyebrow_animation = 0
 
-        # Quantos pixels ela pode subir/descer
         self.max_animation = 2
+
+
+    # ==================================================
+    # MODOS
+    # ==================================================
+
+    def start_sleep(self):
+
+        self.mode = "sleep"
+
+        self.talking = False
+
+        self.state.set_current_eye("sleepy")
+
+        self.state.set_current_mouth("O")
+
+        self.state.set_eyebrow_pose(2, 2)
+
+        self.sleep_index = 0
+
+        self.sleep_timer = pygame.time.get_ticks()
+
+
+    def stop_sleep(self):
+
+        self.mode = "normal"
+
+        self.state.set_current_eye(self.state.eye)
+
+        self.state.set_current_mouth(self.state.mouth)
+
+        self.state.reset_eyebrow_pose()
+
+        self.state.reset_eyebrow_animation()
 
 
     # ==================================================
@@ -53,6 +101,9 @@ class Animator:
     # ==================================================
 
     def start_talking(self):
+
+        if self.mode == "sleep":
+            return
 
         self.talking = True
 
@@ -72,6 +123,13 @@ class Animator:
 
     def update(self):
 
+        if self.mode == "sleep":
+
+            self.update_sleep()
+
+            return
+
+
         self.update_talking()
 
         self.update_blink()
@@ -80,7 +138,7 @@ class Animator:
 
 
     # ==================================================
-    # BOCA
+    # BOCA (FALA)
     # ==================================================
 
     def update_talking(self):
@@ -115,6 +173,41 @@ class Animator:
                 self.viseme_index = 0
 
             self.talk_timer = now
+
+    # ==================================================
+    # SONO
+    # ==================================================
+
+    def update_sleep(self):
+
+        now = pygame.time.get_ticks()
+
+        # Mantém os olhos fechados
+        self.state.set_current_eye("sleepy")
+
+        # Respiração da boca (O -> O -> U -> U)
+        if now - self.sleep_timer >= self.sleep_speed:
+
+            sequence = [
+                "O",
+                "O",
+                "U",
+                "U"
+            ]
+
+            self.state.set_current_mouth(
+                sequence[self.sleep_index]
+            )
+
+            self.sleep_index += 1
+
+            if self.sleep_index >= len(sequence):
+                self.sleep_index = 0
+
+            self.sleep_timer = now
+
+        # Movimento suave das sobrancelhas
+        self.update_eyebrows()
 
 
     # ==================================================
@@ -164,25 +257,18 @@ class Animator:
         if now - self.eyebrow_timer < self.eyebrow_speed:
             return
 
-
         self.eyebrow_animation += self.eyebrow_direction
-
 
         if self.eyebrow_animation <= -self.max_animation:
 
             self.eyebrow_direction = 1
 
-
         elif self.eyebrow_animation >= self.max_animation:
 
             self.eyebrow_direction = -1
 
-
         self.state.set_eyebrow_animation(
-
             self.eyebrow_animation
-
         )
-
 
         self.eyebrow_timer = now

@@ -20,10 +20,8 @@ renderer = Renderer()
 # Expressão inicial
 renderer.state.set_face(*NORMAL)
 
-# Controle da fala
-animator = Animator(
-    renderer.state
-)
+# Controle das animações
+animator = Animator(renderer.state)
 
 
 running = True
@@ -39,10 +37,14 @@ while running:
         if event.type == pygame.KEYDOWN:
 
 
-            # ---------- EXPRESSÕES ----------
+            # ==========================================
+            # EXPRESSÕES
+            # ==========================================
 
             # Normal
             if event.key == pygame.K_n:
+
+                animator.stop_sleep()
 
                 renderer.state.set_face(*NORMAL)
 
@@ -50,11 +52,15 @@ while running:
             # Feliz
             elif event.key == pygame.K_h:
 
+                animator.stop_sleep()
+
                 renderer.state.set_face(*HAPPY)
 
 
             # Feliz piscando
             elif event.key == pygame.K_j:
+
+                animator.stop_sleep()
 
                 renderer.state.set_face(*HAPPY_BLINK)
 
@@ -62,11 +68,15 @@ while running:
             # Triste
             elif event.key == pygame.K_s:
 
+                animator.stop_sleep()
+
                 renderer.state.set_face(*SAD)
 
 
             # Assustado
             elif event.key == pygame.K_a:
+
+                animator.stop_sleep()
 
                 renderer.state.set_face(*SCARED)
 
@@ -74,65 +84,79 @@ while running:
             # Bravo
             elif event.key == pygame.K_b:
 
+                animator.stop_sleep()
+
                 renderer.state.set_face(*ANGRY)
 
 
 
-            # ---------- TESTE MANUAL DE VISEMES ----------
+            # ==========================================
+            # MODO DORMIR
+            # ==========================================
 
-            # A
+            # Dormir
+            elif event.key == pygame.K_d:
+
+                animator.start_sleep()
+
+
+            # Acordar
+            elif event.key == pygame.K_w:
+
+                animator.stop_sleep()
+
+
+
+            # ==========================================
+            # TESTE DOS VISEMES
+            # ==========================================
+
             elif event.key == pygame.K_1:
 
-                renderer.state.set_viseme("A")
+                renderer.state.set_current_mouth("A")
 
 
-            # E
             elif event.key == pygame.K_2:
 
-                renderer.state.set_viseme("E")
+                renderer.state.set_current_mouth("E")
 
 
-            # I
             elif event.key == pygame.K_3:
 
-                renderer.state.set_viseme("I")
+                renderer.state.set_current_mouth("I")
 
 
-            # O
             elif event.key == pygame.K_4:
 
-                renderer.state.set_viseme("O")
+                renderer.state.set_current_mouth("O")
 
 
-            # U
             elif event.key == pygame.K_5:
 
-                renderer.state.set_viseme("U")
+                renderer.state.set_current_mouth("U")
 
 
 
-            # ---------- ANIMAÇÃO DE FALA ----------
+            # ==========================================
+            # FALA
+            # ==========================================
 
-            # Iniciar fala automática
             elif event.key == pygame.K_t:
 
                 animator.start_talking()
 
 
-            # Parar fala
             elif event.key == pygame.K_SPACE:
 
                 animator.stop_talking()
 
 
 
-    # Atualiza animação da boca
+    # Atualiza animações
     animator.update()
 
-
-    # Desenha rosto
+    # Desenha o rosto
     renderer.draw()
-
 
 
 pygame.quit()
