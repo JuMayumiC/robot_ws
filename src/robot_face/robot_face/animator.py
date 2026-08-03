@@ -4,11 +4,9 @@ import random
 
 class Animator:
 
-
     def __init__(self, state):
 
         self.state = state
-
 
         # =====================
         # FALA
@@ -17,12 +15,9 @@ class Animator:
         self.talking = False
 
         self.talk_timer = 0
-
         self.talk_speed = 120
 
         self.viseme_index = 0
-
-
 
         # =====================
         # PISCADA
@@ -37,26 +32,31 @@ class Animator:
             + random.randint(2000, 5000)
         )
 
-
-
         # =====================
-        # SOBRANCELHA
+        # SOBRANCELHAS
         # =====================
 
         self.eyebrow_timer = 0
 
-        self.eyebrow_up = False
+        self.eyebrow_speed = 120
 
-        self.eyebrow_speed = 900
+        self.eyebrow_direction = -1
+
+        self.eyebrow_animation = 0
+
+        # Quantos pixels ela pode subir/descer
+        self.max_animation = 2
 
 
+    # ==================================================
+    # FALA
+    # ==================================================
 
     def start_talking(self):
 
         self.talking = True
 
         self.viseme_index = 0
-
 
 
     def stop_talking(self):
@@ -66,6 +66,9 @@ class Animator:
         self.state.stop_talking()
 
 
+    # ==================================================
+    # UPDATE
+    # ==================================================
 
     def update(self):
 
@@ -73,12 +76,11 @@ class Animator:
 
         self.update_blink()
 
-        self.update_eyebrow()
-
+        self.update_eyebrows()
 
 
     # ==================================================
-    # BOCA / FALA
+    # BOCA
     # ==================================================
 
     def update_talking(self):
@@ -86,12 +88,9 @@ class Animator:
         if not self.talking:
             return
 
-
         now = pygame.time.get_ticks()
 
-
         if now - self.talk_timer >= self.talk_speed:
-
 
             sequence = [
 
@@ -105,22 +104,17 @@ class Animator:
 
             ]
 
-
             self.state.set_current_mouth(
                 sequence[self.viseme_index]
             )
 
-
             self.viseme_index += 1
-
 
             if self.viseme_index >= len(sequence):
 
                 self.viseme_index = 0
 
-
             self.talk_timer = now
-
 
 
     # ==================================================
@@ -131,36 +125,27 @@ class Animator:
 
         now = pygame.time.get_ticks()
 
-
         if (
             now >= self.next_blink
             and not self.blinking
         ):
 
-            self.state.set_current_eye(
-                "blink"
-            )
-
+            self.state.set_current_eye("blink")
 
             self.blinking = True
 
             self.blink_timer = now
 
 
-
         elif self.blinking:
 
-
             if now - self.blink_timer >= 150:
-
 
                 self.state.set_current_eye(
                     self.state.eye
                 )
 
-
                 self.blinking = False
-
 
                 self.next_blink = (
                     now
@@ -168,33 +153,36 @@ class Animator:
                 )
 
 
-
     # ==================================================
-    # SOBRANCELHA
+    # SOBRANCELHAS
     # ==================================================
 
-    def update_eyebrow(self):
+    def update_eyebrows(self):
 
         now = pygame.time.get_ticks()
 
-
-        if now - self.eyebrow_timer >= self.eyebrow_speed:
-
-
-            if self.eyebrow_up:
-
-                # volta para posição normal
-                self.state.set_eyebrow_offset(0)
+        if now - self.eyebrow_timer < self.eyebrow_speed:
+            return
 
 
-            else:
-
-                # sobe 5 pixels
-                self.state.set_eyebrow_offset(-5)
+        self.eyebrow_animation += self.eyebrow_direction
 
 
+        if self.eyebrow_animation <= -self.max_animation:
 
-            self.eyebrow_up = not self.eyebrow_up
+            self.eyebrow_direction = 1
 
 
-            self.eyebrow_timer = now
+        elif self.eyebrow_animation >= self.max_animation:
+
+            self.eyebrow_direction = -1
+
+
+        self.state.set_eyebrow_animation(
+
+            self.eyebrow_animation
+
+        )
+
+
+        self.eyebrow_timer = now

@@ -11,27 +11,17 @@ class Renderer:
 
         pygame.init()
 
-        self.screen = pygame.display.set_mode(
-            (520, 309)
-        )
-
-        pygame.display.set_caption(
-            "Robot Face"
-        )
-
+        self.screen = pygame.display.set_mode((520, 309))
+        pygame.display.set_caption("Robot Face")
 
         self.assets = AssetManager()
 
         self.state = FaceState()
 
 
-
     def draw(self):
 
-        self.screen.fill(
-            (30, 30, 30)
-        )
-
+        self.screen.fill((30, 30, 30))
 
         # =====================
         # FACE BASE
@@ -45,10 +35,8 @@ class Renderer:
             )
         )
 
-
-
         # =====================
-        # SOBRANCELHAS
+        # SOBRANCELHA ESQUERDA
         # =====================
 
         self.screen.blit(
@@ -59,10 +47,14 @@ class Renderer:
             (
                 Layout.LEFT_EYEBROW_X,
                 Layout.LEFT_EYEBROW_Y
-                + self.state.eyebrow_offset_y
+                + self.state.left_eyebrow_base_y
+                + self.state.eyebrow_anim_y
             )
         )
 
+        # =====================
+        # SOBRANCELHA DIREITA
+        # =====================
 
         self.screen.blit(
             self.assets.get_eyebrow(
@@ -72,14 +64,13 @@ class Renderer:
             (
                 Layout.RIGHT_EYEBROW_X,
                 Layout.RIGHT_EYEBROW_Y
-                + self.state.eyebrow_offset_y
+                + self.state.right_eyebrow_base_y
+                + self.state.eyebrow_anim_y
             )
         )
 
-
-
         # =====================
-        # OLHOS
+        # OLHO ESQUERDO
         # =====================
 
         self.screen.blit(
@@ -93,6 +84,9 @@ class Renderer:
             )
         )
 
+        # =====================
+        # OLHO DIREITO
+        # =====================
 
         self.screen.blit(
             self.assets.get_eye(
@@ -104,8 +98,6 @@ class Renderer:
                 Layout.RIGHT_EYE_Y
             )
         )
-
-
 
         # =====================
         # BOCA
@@ -122,21 +114,15 @@ class Renderer:
             x = Layout.VISEME_X
             y = Layout.VISEME_Y
 
-
-            # ajuste do I
             if self.state.current_mouth == "I":
 
                 x = Layout.VISEME_I_X
                 y = Layout.VISEME_I_Y
 
-
-            # ajuste do U
             elif self.state.current_mouth == "U":
 
                 x = Layout.VISEME_U_X
                 y = Layout.VISEME_U_Y
-
-
 
             self.screen.blit(
                 self.assets.get_viseme(
@@ -147,7 +133,6 @@ class Renderer:
                     y
                 )
             )
-
 
         else:
 
@@ -160,7 +145,5 @@ class Renderer:
                     Layout.MOUTH_Y
                 )
             )
-
-
 
         pygame.display.flip()
